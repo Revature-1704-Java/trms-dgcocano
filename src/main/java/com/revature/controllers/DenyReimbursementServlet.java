@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.*;
 import java.sql.Timestamp;
 import java.io.*;
-public class ApproveReimbursementServlet extends HttpServlet {
+public class DenyReimbursementServlet extends HttpServlet {
 
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException  {
     HttpSession session = request.getSession(true);
@@ -53,9 +53,9 @@ public class ApproveReimbursementServlet extends HttpServlet {
     ResponseDAO responseD = new ResponseDAO("/home/danny/Revature/trms-dgcocano/trms/test.properties");
     ReimbursementDAO reimD = new ReimbursementDAO("/home/danny/Revature/trms-dgcocano/trms/test.properties");
 
-    Reimbursement approved = reimD.getById(reimId);
+    Reimbursement denied = reimD.getById(reimId);
     Employee viewer = empD.getById((int)session.getAttribute("employeeId"));
-    Employee owner = empD.getById(approved.getEmployeeId());
+    Employee owner = empD.getById(denied.getEmployeeId());
 
     Employee supervisor = empD.getById(owner.getSupervisor());
     Employee depHead = empD.getDepartmentHead(owner.getDepartmentId());
@@ -79,16 +79,16 @@ public class ApproveReimbursementServlet extends HttpServlet {
         responseD.add(responseToAdd);
         responseToAdd = new Response(maxId+2, reimId, employeeId, 3, curTime);
         responseD.add(responseToAdd);
-        approved.setAssignedTo(0);
-        int x = reimD.update(approved.getReimbursementId(), approved);
+        denied.setAssignedTo(-1);
+        int x = reimD.update(denied.getReimbursementId(), denied);
         responseD.close();
         reimD.close();
       }
       else if(employeeTypeId==2) {
         responseToAdd = new Response(maxId+1, reimId, employeeId, employeeTypeId, curTime);
         responseD.add(responseToAdd);
-        approved.setAssignedTo(depHeadId);
-        int x = reimD.update(approved.getReimbursementId(), approved);
+        denied.setAssignedTo(-1);
+        int x = reimD.update(denied.getReimbursementId(), denied);
         responseD.close();
         reimD.close();
       }
@@ -100,8 +100,8 @@ public class ApproveReimbursementServlet extends HttpServlet {
     else if(responses.size()==1) {
       responseToAdd = new Response(maxId+1, reimId, employeeId, employeeTypeId, curTime);
       responseD.add(responseToAdd);
-      approved.setAssignedTo(0);
-      reimD.update(approved.getReimbursementId(), approved);
+      denied.setAssignedTo(-1);
+      reimD.update(denied.getReimbursementId(), denied);
         responseD.close();
         reimD.close();
     }

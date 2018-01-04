@@ -40,7 +40,7 @@ public class AssignedReimbursementServlet extends HttpServlet {
 
       String html =  "<h1 align = \"center\">" + title + "</h1>\n" +
                "<h2 align = \"center\">" + title + "</h2>\n" +
-               "<table border = \"1\" align = \"center\">\n" +
+               "<table class=\"table table-hover table-striped table-bordered table-condensed\" border = \"1\" align = \"center\">\n" +
                   "<tr bgcolor = \"#949494\">\n" +
                      "  <th>" + title + "</th><th>value</th>";
       for(Reimbursement reim : reimbursements) {
@@ -63,25 +63,31 @@ public class AssignedReimbursementServlet extends HttpServlet {
         RequestDispatcher rs = request.getRequestDispatcher("index.html");
         rs.forward(request, response);
       }
-
-      ReimbursementDAO reimbursementDAO = new ReimbursementDAO("/home/danny/Revature/trms-dgcocano/trms/test.properties");
-
-      ArrayList<Reimbursement> reimbursements = reimbursementDAO.getAssignedReimbursements((int)session.getAttribute("employeeId"));
-      reimbursementDAO.close();
-      // Set response content type
       response.setContentType("text/html");
       PrintWriter out = response.getWriter();
-
-      String html =  "<h1 align = \"center\">" + title + "</h1>\n" +
-               "<table border = \"1\" align = \"center\">\n" +
-                  "<tr bgcolor = \"#949494\">\n"; 
-      html+="<tr>\n<td>ReimbursementId</td><td>GradingFormatId</td><td>Cost</td><td>SubmissionTime</td><td>TimeMissed</td><td>Justification</td><td>Urgent</td><td>Exceeding</td></tr>";
-      for(Reimbursement reim : reimbursements) {
-        html+=("<tr>\n" + "<td>"+reim.getReimbursementId()+"</td><td>"+reim.getGradingFormatId()+"</td><td>"+ reim.getCost()+"</td><td>"+reim.getSubmissionTime()+"</td><td>"+reim.getTimeMissed()+"</td><td>"+reim.getJustification()+
-            "</td><td>" + reim.getUrgent() + "</td><td>" + reim.getExceeding() + "</td><td><form action=\"approveReimbursement\" method=\"post\"><input name=\"reimbursementId\" value=\"" + reim.getReimbursementId() + "\"><input type=\"submit\" value=\"APPROVE\"></input></form></td>\n</tr>\n");
-        
+      if((int)session.getAttribute("employeeTypeId") == 1) {
+        out.println();
       }
-      html += "</table>\n</body>\n</html>";
-      out.println(html);
+      else if((int)session.getAttribute("employeeTypeId") > 1) {
+
+  
+      ReimbursementDAO reimbursementDAO = new ReimbursementDAO("/home/danny/Revature/trms-dgcocano/trms/test.properties");
+  
+      ArrayList<Reimbursement> reimbursements = reimbursementDAO.getAssignedReimbursements((int)session.getAttribute("employeeId"));
+        reimbursementDAO.close();
+        // Set response content type
+  
+      String html =  "<h1 align = \"center\">" + title + "</h1>\n" +
+                 "<table border = \"1\" align = \"center\">\n" +
+                    "<tr bgcolor = \"#949494\">\n"; 
+        html+="<tr>\n<td>ReimbursementId</td><td>EmployeeId</td><td>GradingFormatId</td><td>Cost</td><td>SubmissionTime</td><td>TimeMissed</td><td>Justification</td><td>Urgent</td><td>Exceeding</td></tr>";
+        for(Reimbursement reim : reimbursements) {
+                html+=("<tr>\n" + "<td>"+reim.getReimbursementId()+"</td><td>"+reim.getEmployeeId()+"</td><td>"+reim.getGradingFormatId()+"</td><td>"+ reim.getCost()+"</td><td>"+reim.getSubmissionTime()+"</td><td>"+reim.getTimeMissed()+"</td><td>"+reim.getJustification()+
+              "</td><td>" + reim.getUrgent() + "</td><td>" + reim.getExceeding() + "</td><td><form action=\"approveReimbursement\" method=\"post\"><input type=\"hidden\"name=\"reimbursementId\" value=\"" + reim.getReimbursementId() + "\"><input type=\"submit\" value=\"APPROVE\"></input></form></td><td><form action=\"denyReimbursement\" method=\"post\"><input type=\"hidden\"name=\"reimbursementId\" value=\"" + reim.getReimbursementId() + "\"><input type=\"submit\" value=\"DENY\"></input></form></td>\n</tr>\n");
+        
+        }
+        html += "</table>\n</body>\n</html>";
+        out.println(html);
+      }
    }
 }

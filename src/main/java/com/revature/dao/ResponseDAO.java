@@ -45,7 +45,7 @@ public class ResponseDAO extends GenericDAOImpl<Response> {
     PreparedStatement ps = null;
     int recordsAffected = 0;
     try {
-      String sql = "UPDATE RESPONSE SET RESPONSE_ID = ?, REIMBURSEMENT_ID = ?, EMPLOYEE_ID = ?, RESPONSE_ID = ?, RESPONSE_TIMESTAMP = ? WHERE RESPONSE__ID = ?";
+      String sql = "UPDATE RESPONSE SET RESPONSE_ID = ?, REIMBURSEMENT_ID = ?, EMPLOYEE_ID = ?, RESPONSE_TYPE_ID = ?, RESPONSE_TIMESTAMP = ? WHERE RESPONSE__ID = ?";
       ps = conn.prepareStatement(sql);
       ps.setInt(1, response.getResponseId());
       ps.setInt(2, response.getReimbursementId());
@@ -98,7 +98,7 @@ public class ResponseDAO extends GenericDAOImpl<Response> {
         int responseId = rs.getInt("RESPONSE_Id");
         int reimbursementId = rs.getInt("REIMBURSEMENT_ID");
         int employeeId = rs.getInt("EMPLOYEE_ID");
-        int responseTypeId = rs.getInt("RESPONSE_ID");
+        int responseTypeId = rs.getInt("RESPONSE_TYPE_ID");
         Timestamp responseTimestamp = rs.getTimestamp("RESPONSE_TIMESTAMP");
 
         response = new Response(responseId, reimbursementId, employeeId, responseTypeId, responseTimestamp);
@@ -127,7 +127,7 @@ public class ResponseDAO extends GenericDAOImpl<Response> {
         int responseId = rs.getInt("RESPONSE_Id");
         int reimbursementId = rs.getInt("REIMBURSEMENT_ID");
         int employeeId = rs.getInt("EMPLOYEE_ID");
-        int responseTypeId = rs.getInt("RESPONSE_ID");
+        int responseTypeId = rs.getInt("RESPONSE_TYPE_ID");
         Timestamp responseTimestamp = rs.getTimestamp("RESPONSE_TIMESTAMP");
 
         response = new Response(responseId, reimbursementId, employeeId, responseTypeId, responseTimestamp);
@@ -155,7 +155,7 @@ public class ResponseDAO extends GenericDAOImpl<Response> {
       while (rs.next()) {
         int responseId = rs.getInt("RESPONSE_Id");
         int reimbursementId = rs.getInt("REIMBURSEMENT_ID");
-        int responseTypeId = rs.getInt("RESPONSE_ID");
+        int responseTypeId = rs.getInt("RESPONSE_TYPE_ID");
         int employeeId = rs.getInt("EMPLOYEE_ID");
         Timestamp responseTimestamp = rs.getTimestamp("RESPONSE_TIMESTAMP");
 

@@ -50,7 +50,8 @@ public class ReimbursementDAOTest
       reimbursementDAO.close();
     }
     public static void testUpdateTwo() {
-      int x = reimbursementDAO.update(2, new Reimbursement(2,1,2,2,3,1000, timestamp, 20, "Justification", 0,0));
+      Reimbursement toAdd = new Reimbursement(2,1,2,2,3,500, timestamp, 20, "Justification", 0,0);
+      int x = reimbursementDAO.update(2, toAdd);
       x = reimbursementDAO.getById(2).getEmployeeId();
       assertEquals(1, x);
     }

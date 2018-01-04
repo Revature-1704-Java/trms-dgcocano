@@ -51,7 +51,7 @@ public class ReimbursementDAO extends GenericDAOImpl<Reimbursement> {
     PreparedStatement ps = null;
     int recordsAffected = 0;
     try {
-      String sql = "UPDATE REIMBURSEMENT SET REIMBURSEMENT_ID = ?, EMPLOYEE_ID = ?, EVENT_ID = ?, GRADING_FORMAT_ID = ?, COST = ?, SUBMISSION_TIME = ?, TIME_MISSED = ?, JUSTIFICATION = ?, URGENT = ?, EXCEEDING = ? WHERE REIMBURSEMENT_ID = ?";
+      String sql = "UPDATE REIMBURSEMENT SET REIMBURSEMENT_ID = ?, EMPLOYEE_ID = ?, EVENT_ID = ?, GRADING_FORMAT_ID = ?, ASSIGNED_TO = ?, COST = ?, SUBMISSION_TIME = ?, TIME_MISSED = ?, JUSTIFICATION = ?, URGENT = ?, EXCEEDING = ? WHERE REIMBURSEMENT_ID = ?";
       ps = conn.prepareStatement(sql);
       ps.setInt(1, reimbursement.getReimbursementId());
       ps.setInt(2, reimbursement.getEmployeeId());
@@ -67,9 +67,6 @@ public class ReimbursementDAO extends GenericDAOImpl<Reimbursement> {
       ps.setInt(12, reimbursement.getReimbursementId());
 
       recordsAffected = ps.executeUpdate();
-      sql = "COMMIT;";
-      ps = conn.prepareStatement(sql);
-      ps.executeUpdate();
       ps.close();
     }
     catch (Exception ex) {

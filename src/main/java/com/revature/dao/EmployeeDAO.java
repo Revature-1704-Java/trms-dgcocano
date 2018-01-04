@@ -131,7 +131,7 @@ public class EmployeeDAO extends GenericDAOImpl<Employee> {
     Employee employee = null;
 
     try{
-      String sql = "SELECT * FROM EMPLOYEE WHERE DEPARTMENT = ? AND EMPLOYEE_TYPE = 3";
+      String sql = "SELECT * FROM EMPLOYEE WHERE DEPARTMENT_ID = ? AND EMPLOYEE_TYPE_ID = 3";
       ps = conn.prepareStatement(sql);
 			ps.setInt(1, selector);
       

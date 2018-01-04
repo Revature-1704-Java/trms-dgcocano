@@ -8,10 +8,9 @@
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="companymockup.js"></script>
   </head>
   <body>
-    <form action="submissionForm" method="post">
+   <!-- <form action="submissionForm" method="post">
       <div>
         <input type="number" id="eventId" name="eventId" placeholder="event" required>
     </div>
@@ -33,31 +32,54 @@
     <div class="button">
       <input type="reset">
     </div>
-    </form>
+   </form>
     <form action="welcome" method="post">
       <div class="button">
       <button type="submit">Back</button>
       </div>
-    </form>
-    <div id="contact" class="container-fluid bg-grey">
+    </form>-->
+    <br>
+    <div id="submission" class="container-fluid bg-grey">
       <div class="row">
-        <div class="col-sm-7">
-          <div class="row">
-            <div class="col-sm-6 form-group">
-              <input class="form-control" id="name" name="name" placeholder="Name" type="text" required>
-            </div>
-            <div class="col-sm-6 form-group">
-              <input class="form-control" id="email" name="email" placeholder="Email" type="email" required>
-            </div>
-          </div>
-          <textarea class="form-control" id="comments" name="comments" placeholder="Comment" rows="5"></textarea><br>
-          <div class="row">
-            <div class="col-sm-12 form-group">
-              <button class="btn btn-default pull-right" type="submit">Send</button>
-            </div>
-          </div>
+        <div class="col-sm-4">
         </div>
+        <div class="col-sm-4">
+          <form action="submissionForm" method="post">
+            <div class="row">
+              <div class="col-xs-12 col-sm-12 form-group">
+                <input class="form-control"  name="eventId" placeholder="EventId" type="number" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class=" col-xs-12 col-sm-12 form-group">
+                <input class="form-control" name="cost" placeholder="Cost" type="cost" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 form-group">
+                <input class="form-control" name="timemissed" placeholder="# of Work Hours Missed" type="text" required/>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 form-group">
+               <input class="form-control" name="gradingFormat" placeholder="Grading Format Id" type="number" required/>
+             </div>
+           </div>
+           <div class="row">
+             <textarea class="form-control" name="justification" placeholder="Justification" rows="3" required></textarea><br>
+           </div>
+           <div class="row">
+             <div class="col-sm-12 form-group">
+               <input class="btn btn-default " type="submit"/>
+               <input class="btn btn-default" type="reset"/>
+             </div>
+          </div>
+        </form>
+        <form action="welcome" method="post">
+          <input class="btn btn-default" type="submit" value="BACK"/>
+        </form>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>

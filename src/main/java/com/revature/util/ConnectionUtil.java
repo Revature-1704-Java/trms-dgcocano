@@ -1,6 +1,7 @@
 package com.revature.util;
 
 import oracle.jdbc.driver.OracleDriver;
+import org.apache.logging.log4j.*;
 import java.io.FileInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class ConnectionUtil {
+  //final static Logger logger = Logger.getLogger(com.revature.util.ConnectionUtil.class.getName());
 	public static Connection getConnection() throws SQLException, IOException {
 		Properties prop = new Properties();
 		InputStream in = new FileInputStream(new File("./connection.properties"));
